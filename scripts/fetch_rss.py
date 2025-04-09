@@ -23,7 +23,8 @@ FEEDS = [
     "https://medium.com/feed/watcha",
     "https://engineering.linecorp.com/ko/feed/",
     "https://ridicorp.com/story-category/tech-blog/feed/",
-    "https://oliveyoung.tech/rss.xml"
+    "https://oliveyoung.tech/rss.xml",
+    "https://gsretail.tistory.com/xml"
 ]
 
 # 24시간 이내 글만
