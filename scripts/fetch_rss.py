@@ -63,3 +63,12 @@ with open(daily_filename, "w", encoding="utf-8") as f:
 
 # index.html 업데이트 (링크 목록으로)
 existing_files = sorted(
+    [fn for fn in os.listdir("output") if fn.endswith(".html") and fn != "index.html"]
+)
+
+with open("output/index.html", "w", encoding="utf-8") as f:
+    f.write("<html><head><meta charset='utf-8'><title>RSS 인덱스</title></head><body>")
+    f.write("<h1>고독한 개발자의 기록</h1><ul>")
+    for fn in existing_files:
+        f.write(f"<li><a href='{fn}'>{fn}</a></li>")
+    f.write("</ul></body></html>")
