@@ -38,6 +38,10 @@ entries = []
 for url in FEEDS:
     print(f">>>>>>>>> {url}")
     feed = feedparser.parse(url)
+
+    print(feed.bozo)
+    print(feed.bozo_exception)
+    
     for entry in feed.entries:
         published = entry.get("published_parsed")
         print(f">>>> {published}")
