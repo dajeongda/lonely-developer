@@ -38,6 +38,7 @@ for url in FEEDS:
     feed = feedparser.parse(url)
     for entry in feed.entries:
         published = entry.get("published_parsed")
+        print(f">>>> {published}")
         if not published:
             continue
         pub_date = datetime(*published[:6])
