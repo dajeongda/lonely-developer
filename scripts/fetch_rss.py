@@ -78,20 +78,34 @@ os.makedirs("output", exist_ok=True)
 # 날짜별 파일 생성: e.g. output/250409.html
 daily_filename = f"output/{today_str}.html"
 with open(daily_filename, "w", encoding="utf-8") as f:
-    f.write("<html><head><meta charset='utf-8'><title>최근 글</title></head><body>")
-    f.write("<h1>고독한 개발자의 하루...</h1><ul>")
-    for e in entries:
-        f.write(f"<li><a href='{e['link']}' target='_blank'>{e['title']}</a> - {e['published']}</li>")
-    f.write("</ul></body></html>")
+    f.write("<h1>고독한 개발자의 하루...</h1>")
 
-# index.html 업데이트 (링크 목록으로)
-existing_files = sorted(
-    [fn for fn in os.listdir("output") if fn.endswith(".html") and fn != "index.html"]
-)
+    if entries:
+        f.write("<ul>")
+        for e in entries:
+            f.write(f"<li><a href='{e['link']}' target='_blank'>{e['title']}</a> - {e['published']}</li>")
+        f.write("</ul>")
+    else:
+        f.write("<p>너무 고독해... 🍂</p>")
+
+    f.write("</body></html>")
+
+# output 디렉토리의 파일명 중 날짜 형식만 골라서 정렬
+existing_files = [
+    fn for fn in os.listdir("output")
+    if fn.endswith(".html") and fn != "index.html" and fn[:6].isdigit()
+]
+
+# 내림차순 정렬 (최신 날짜 먼저)
+existing_files.sort(reverse=True)
+
+# 최근 30개만
+recent_files = existing_files[:30]
 
 with open("output/index.html", "w", encoding="utf-8") as f:
     f.write("<html><head><meta charset='utf-8'><title>RSS 인덱스</title></head><body>")
-    f.write("<h1>고독한 개발자의 기록</h1><ul>")
-    for fn in existing_files:
+    f.write("<h1>고독한 개발자의 기록 (최근 30일)</h1><ul>")
+    for fn in recent_files:
         f.write(f"<li><a href='{fn}'>{fn}</a></li>")
     f.write("</ul></body></html>")
+    
