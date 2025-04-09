@@ -35,6 +35,7 @@ print(f">>>> {today_str}")
 entries = []
 
 for url in FEEDS:
+    print(f">>>>>>>>> {url}")
     feed = feedparser.parse(url)
     for entry in feed.entries:
         published = entry.get("published_parsed")
