@@ -47,7 +47,7 @@ for url in FEEDS:
                 "published": pub_date.strftime("%Y-%m-%d %H:%M")
             })
 
-    print(f"총 {len(entries)}개의 글을 수집했습니다.")
+    print(f"{url} - 총 {len(entries)}개의 글을 수집했습니다.")
     print("파일 생성 시작...")
 
 
