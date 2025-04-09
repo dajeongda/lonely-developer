@@ -28,6 +28,7 @@ FEEDS = [
 
 # 24시간 이내 글만
 cutoff = datetime.utcnow() - timedelta(days=1)
+today_str = datetime.utcnow().strftime("%y%m%d") 
 
 entries = []
 
