@@ -1,7 +1,9 @@
 import feedparser
+import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 import os
+
 
 # 수집할 RSS 피드
 FEEDS = [
