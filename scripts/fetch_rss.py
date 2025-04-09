@@ -1,5 +1,6 @@
 import feedparser
 from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
 import os
 
 # 수집할 RSS 피드
@@ -37,15 +38,22 @@ entries = []
 
 for url in FEEDS:
     print(f">>>>>>>>> {url}")
-    feed = feedparser.parse(url)
-    if feed.bozo:
-        if hasattr(feed, "bozo_exception"):
-            print(f"[⚠️ 실패] {url} - 이유: {feed.bozo_exception}")
-        else:
-            print(f"[⚠️ 실패] {url} - 이유 알 수 없음 (bozo=True)")
-        continue
 
-    for entry in feed.entries:
+    try:
+        feed = feedparser.parse(url)
+        if feed.bozo:
+            raise ValueError("bozo feed")
+
+        fetched_entries = feed.entries
+
+    except:
+        print(f"{url}은 깨짐. fallback 방식으로 재시도 중...")
+        res = requests.get(url)
+        soup = BeautifulSoup(res.content, "html5lib")
+        feed = feedparser.parse(str(soup))
+        fetched_entries = feed.entries
+
+    for entry in fetched_entries:
         published = entry.get("published_parsed")
         print(f">>>> {published}")
         if not published:
