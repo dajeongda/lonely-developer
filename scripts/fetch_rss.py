@@ -30,6 +30,7 @@ FEEDS = [
 cutoff = datetime.utcnow() - timedelta(days=1)
 
 entries = []
+
 for url in FEEDS:
     feed = feedparser.parse(url)
     for entry in feed.entries:
@@ -45,11 +46,17 @@ for url in FEEDS:
                 "published": pub_date.strftime("%Y-%m-%d %H:%M")
             })
 
-# HTML 생성
+
 os.makedirs("output", exist_ok=True)
-with open("output/index.html", "w", encoding="utf-8") as f:
+
+# 날짜별 파일 생성: e.g. output/250409.html
+daily_filename = f"output/{today_str}.html"
+with open(daily_filename, "w", encoding="utf-8") as f:
     f.write("<html><head><meta charset='utf-8'><title>최근 글</title></head><body>")
-    f.write("<h1>고독한 개발자...</h1><ul>")
+    f.write("<h1>고독한 개발자의 하루...</h1><ul>")
     for e in entries:
         f.write(f"<li><a href='{e['link']}' target='_blank'>{e['title']}</a> - {e['published']}</li>")
     f.write("</ul></body></html>")
+
+# index.html 업데이트 (링크 목록으로)
+existing_files = sorted(
