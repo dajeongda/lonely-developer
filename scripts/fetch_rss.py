@@ -3,6 +3,9 @@ import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 import os
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 # 수집할 RSS 피드
@@ -50,7 +53,7 @@ for url in FEEDS:
 
     except:
         print(f"{url}은 깨짐. fallback 방식으로 재시도 중...")
-        res = requests.get(url)
+        res = requests.get(url, verify=False)
         soup = BeautifulSoup(res.content, "html5lib")
         feed = feedparser.parse(str(soup))
         fetched_entries = feed.entries
