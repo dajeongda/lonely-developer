@@ -10,19 +10,19 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # 수집할 RSS 피드
 FEEDS = [
-    # "https://tech.kakaoent.com/rss.xml",
+    "https://tech.kakaoent.com/rss.xml",
     "https://techblog.woowahan.com/feed/",
-    # "https://medium.com/feed/daangn",
+    "https://medium.com/feed/daangn",
     "https://medium.com/feed/29cm",
     "https://d2.naver.com/d2.atom",
     "https://tech.kakaoenterprise.com/feed/",
     "https://tech.kakao.com/feed/",
     "https://tech.kakaobank.com/index.xml",
     "https://tech.kakaopay.com/rss",
-    # "https://medium.com/feed/coupang-tech",
+    "https://medium.com/feed/coupang-tech",
     "https://dev.gmarket.com/rss",
     "https://medium.com/feed/deliverytechkorea",
-    # "https://medium.com/feed/zigbang",
+    "https://medium.com/feed/zigbang",
     "https://tech.devsisters.com/rss.xml",
     "https://techblog.yogiyo.co.kr/feed/",
     "https://helloworld.kurly.com/feed.xml",
