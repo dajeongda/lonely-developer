@@ -94,21 +94,18 @@ with open(daily_filename, "w", encoding="utf-8") as f:
     f.write("</body></html>")
 
 # output 디렉토리의 파일명 중 날짜 형식만 골라서 정렬
-existing_files = [
-    fn for fn in os.listdir("output")
-    if fn.endswith(".html") and fn != "index.html" and fn[:6].isdigit()
-]
+daily_files = []
 
-# 내림차순 정렬 (최신 날짜 먼저)
-existing_files.sort(reverse=True)
-
-# 최근 30개만
-recent_files = existing_files[:30]
+today = datetime.today()
+for i in range(1, 31):  # 오늘은 제외하고 어제로부터 30일 전까지
+    day = today - timedelta(days=i)
+    filename = day.strftime("%Y%m%d") + ".html"
+    daily_files.append(filename)
 
 with open("output/index.html", "w", encoding="utf-8") as f:
     f.write("<html><head><meta charset='utf-8'><title>RSS 인덱스</title></head><body>")
     f.write("<h1>고독한 개발자의 기록 (최근 30일)</h1><ul>")
-    for fn in recent_files:
+    for fn in daily_files:
         f.write(f"<li><a href='{fn}'>{fn}</a></li>")
     f.write("</ul></body></html>")
     
