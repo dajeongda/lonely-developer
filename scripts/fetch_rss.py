@@ -99,7 +99,7 @@ daily_files = []
 today = datetime.today()
 for i in range(0, 30):  # 오늘은 제외하고 어제로부터 30일 전까지
     day = today - timedelta(days=i)
-    filename = day.strftime("%Y%m%d") + ".html"
+    filename = day.strftime("%y%m%d") + ".html"
     daily_files.append(filename)
 
 with open("output/index.html", "w", encoding="utf-8") as f:
